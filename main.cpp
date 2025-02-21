@@ -113,7 +113,7 @@ int main()
     r = r->next;
   }
 
-  function<shared_ptr<node>(shared_ptr<node>)> build = [&](shared_ptr<node> curr) -> shared_ptr<node>
+  function<string(shared_ptr<node>)> build = [&](shared_ptr<node> curr) -> string
   {
     shared_ptr<node> _curr = curr;
     int c = 0;
@@ -121,7 +121,7 @@ int main()
     {
       if (curr->nextnext)
       {
-        curr->token = (build(curr->nextnext))->token;
+        curr->token = build(curr->nextnext);
       }
       curr = curr->next;
     }
@@ -172,10 +172,10 @@ int main()
         curr = curr->next;
       }
     }
-    return curr_p;
+    return curr_p->token;
   };
 
-  string result = build(res)->token;
+  string result = build(res);
   cout << "\n"
        << r_str << " = " << result << "\n"
        << "\n";
